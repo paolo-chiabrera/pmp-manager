@@ -1,3 +1,5 @@
+'use strict';
+
 const PmpScheduler = require('pmp-scheduler');
 
 exports.register = function (server, options, next) {

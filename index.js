@@ -1,3 +1,10 @@
+'use strict';
+/*
+* force exit
+*/
+process.on('SIGINT', function() {
+  process.exit();
+});
 /*
 * load config
 */
@@ -77,7 +84,7 @@ server.register([{
   server.log(['info', 'reporters'], {
     reporters: Object.keys(reporters)
   });
-  
+
   server.log(['info', 'config'], config);
 
   if (err) {
