@@ -73,6 +73,11 @@ server.register([{
   register: require('./plugins/pmp-scheduler'),
   options: config.pmpScheduler
 }], (err) => {
+
+  server.log(['info', 'reporters'], {
+    reporters: Object.keys(reporters)
+  });
+  
   server.log(['info', 'config'], config);
 
   if (err) {
