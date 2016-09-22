@@ -4,9 +4,9 @@ MAINTAINER Paolo Chiabrera <paolo.chiabrera@gmail.com>
 
 ENV PM2_HOME /home/app/.pm2
 
-RUN apt-get -y update
+RUN apt-get -yq --no-install-suggests --no-install-recommends --force-yes update
 
-RUN apt-get -y install build-essential
+RUN apt-get -yq --no-install-suggests --no-install-recommends --force-yes install build-essential
 
 # use changes to package.json to force Docker not to use the cache
 # when we change our application's nodejs dependencies:
