@@ -29,47 +29,45 @@ server.route({
 /*
 * register plugins
 */
+const reporters = {
+  console: [
+    {
+      module: 'good-squeeze',
+      name: 'Squeeze',
+      args: config.squeeze.args
+    }, {
+      module: 'good-console'
+    },
+    'stdout'
+  ]
+};
+
+if (config.env === 'production') {
+  reporters.loggly = [{
+    module: 'good-squeeze',
+    name: 'Squeeze',
+    args: config.squeeze.args
+  }, {
+    module: 'good-loggly',
+    args: [{
+      token: config.loggly.token,
+      subdomain: config.loggly.subdomain,
+      tags: ['pmp-manager'],
+      name: 'pmp-manager',
+      hostname: 'manager.picmeplease.eu',
+      threshold: config.loggly.threshold,
+      maxDelay: config.loggly.timeout
+    }]
+  }]
+}
+
 server.register([{
   register: Good,
   options: {
     ops: {
-      interval: 5 * 60000
+      interval: 900000 // 15 mins
     },
-    reporters: {
-      console: [{
-        module: 'good-squeeze',
-        name: 'Squeeze',
-        args: [{
-          error: '*',
-          log: '*',
-          ops: '*',
-          response: '*'  
-        }]
-      }, {
-        module: 'good-console'
-      }, 'stdout'],
-      loggly: [{
-        module: 'good-squeeze',
-        name: 'Squeeze',
-        args: [{
-          error: '*',
-          log: '*',
-          ops: '*',
-          response: '*'
-        }]
-      }, {
-        module: 'good-loggly',
-        args: [{
-          token: config.loggly.token,
-          subdomain: config.loggly.subdomain,
-          tags: ['pmp-manager'],
-          name: 'pmp-manager',
-          hostname: 'manager.picmeplease.eu',
-          threshold: config.loggly.threshold,
-          maxDelay: config.loggly.timeout
-        }]
-      }]
-    }
+    reporters
   }
 }, {
   register: require('./plugins/pmp-scheduler'),
@@ -89,3 +87,5 @@ server.register([{
     server.log('info', 'Server running at: ' + server.info.uri);
   });
 });
+
+module.exports = server;

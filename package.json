@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node test"
+    "test": "node ./node_modules/lab/bin/lab -e test -v -c -L -m 5000 -r console -o stdout -r lcov -o test/coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -36,5 +36,10 @@
     "good-squeeze": "^5.0.0",
     "hapi": "^15.0.3",
     "pmp-scheduler": ">=0.0.3"
+  },
+  "devDependencies": {
+    "code": "^4.0.0",
+    "coveralls": "^2.11.14",
+    "lab": "^11.0.1"
   }
 }

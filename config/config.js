@@ -15,6 +15,17 @@ const conf = convict({
     default: 'development',
     env: 'NODE_ENV'
   },
+  squeeze: {
+    args: {
+      doc: 'The applicaton environment.',
+      default: [{
+        error: '*',
+        log: '*',
+        ops: '*',
+        response: '*'
+      }]
+    }
+  },
   loggly: {
     token: {
       doc: 'The Loggly token.',
@@ -76,8 +87,8 @@ const conf = convict({
 });
 
 // Load environment dependent configuration
-// const env = conf.get('env');
-// conf.loadFile('./config/' + env + '.json');
+const env = conf.get('env');
+conf.loadFile('./config/' + env + '.json');
 
 // Perform validation
 conf.validate({
