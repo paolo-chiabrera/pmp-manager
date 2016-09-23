@@ -13,7 +13,7 @@ exports.register = function (server, options, next) {
 
   pmpScheduler.on('job-start', sourceId => server.log(['info', 'job-start', sourceId]));
 
-  pmpScheduler.on('job-end', (sourceId, code) => server.log(['info', 'job-end', sourceId], {code}));
+  pmpScheduler.on('job-end', (sourceId) => server.log(['info', 'job-end', sourceId]));
 
   pmpScheduler.on('job-message', (sourceId, msg) => {
     switch (msg.type) {
