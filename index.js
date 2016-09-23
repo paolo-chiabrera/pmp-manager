@@ -61,7 +61,7 @@ if (config.env === 'production') {
       subdomain: config.loggly.subdomain,
       tags: ['pmp-manager'],
       name: 'pmp-manager',
-      hostname: 'manager.picmeplease.eu',
+      hostname: config.loggly.hostname,
       threshold: config.loggly.threshold,
       maxDelay: config.loggly.timeout
     }]

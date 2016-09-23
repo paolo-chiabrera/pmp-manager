@@ -48,6 +48,11 @@ const conf = convict({
       doc: 'The Loggly timeout.',
       default: 5000,
       env: 'NODE_LOGGLY_TIMEOUT'
+    },
+    hostname: {
+      doc: 'The Loggly hostname.',
+      default: 'localhost',
+      env: 'NODE_LOGGLY_HOSTNAME'
     }
   },
   pmpScheduler: {

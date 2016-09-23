@@ -1,1 +1,5 @@
-{}
+{
+  "loggly": {
+    "hostname": "manager.dev.picmeplease.eu"
+  }
+}
