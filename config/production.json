@@ -1,1 +1,7 @@
-{}
+{
+  "pmpScheduler": {
+    "scheduler": {
+      "refreshInterval": 900000
+    }
+  }
+}

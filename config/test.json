@@ -1,4 +1,9 @@
 {
+  "pmpScheduler": {
+    "scheduler": {
+      "refreshInterval": 900000
+    }
+  },
   "port": 3001,
   "squeeze": {
     "args": [{
