@@ -1,6 +1,7 @@
 {
   "pmpScheduler": {
     "scraper": {
+      "folderPath": "/images",
       "pmpApiUrl": "http://api.dev.picmeplease.eu"
     }
   }

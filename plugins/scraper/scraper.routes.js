@@ -12,13 +12,9 @@ module.exports.scrapePageBySourceId = {
       const { pageNumber, sourceId } = req.params;
       const { scrapePageBySourceId } = req.server.methods;
       const { config } = req.server.settings;
-      const { pmpApiUrl } = config.pmpScheduler.scraper;
 
       scrapePageBySourceId({
-        options: {
-          pmpApiUrl,
-          request: {}
-        },
+        options: config.pmpScheduler.scraper,
         pageNumber,
         sourceId
       }, (err, res) => {
@@ -50,7 +46,6 @@ module.exports.scrapeSourceById = {
       const { sourceId } = req.params;
       const { scrapeSourceById } = req.server.methods;
       const { config } = req.server.settings;
-      const { pmpApiUrl } = config.pmpScheduler.scraper;
 
       scrapeSourceById({
         onScrapePage: (err, res) => {
@@ -61,10 +56,7 @@ module.exports.scrapeSourceById = {
 
           req.server.log(['info', 'scrape-page'], res);
         },
-        options: {
-          pmpApiUrl,
-          request: {}
-        },
+        options: config.pmpScheduler.scraper,
         sourceId
       }, (err, res) => {
         if (err) {
