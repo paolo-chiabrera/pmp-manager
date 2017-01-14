@@ -1,7 +1,7 @@
 {
   "pmpScheduler": {
     "scraper": {
-      "pmpApiUrl": "http://api.dev.picmeplease.eu"
+      "pmpApiUrl": "http://localhost:8080"
     }
   }
 }

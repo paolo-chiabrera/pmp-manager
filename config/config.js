@@ -13,9 +13,14 @@ const conf = convict({
   },
   env: {
     doc: 'The applicaton environment.',
-    format: ['production', 'development', 'test'],
+    format: ['production', 'development', 'test', 'local'],
     default: 'development',
     env: 'NODE_ENV'
+  },
+  host: {
+    doc: 'The applicaton host.',
+    default: 'localhost',
+    env: 'VIRTUAL_HOST'
   },
   squeeze: {
     args: {
@@ -26,33 +31,6 @@ const conf = convict({
         ops: '*',
         response: '*'
       }]
-    }
-  },
-  loggly: {
-    token: {
-      doc: 'The Loggly token.',
-      default: '',
-      env: 'NODE_LOGGLY_TOKEN'
-    },
-    subdomain: {
-      doc: 'The Loggly subdomain.',
-      default: '',
-      env: 'NODE_LOGGLY_SUBDOMAIN'
-    },
-    threshold: {
-      doc: 'The Loggly threshold.',
-      default: 10,
-      env: 'NODE_LOGGLY_THRESHOLD'
-    },
-    timeout: {
-      doc: 'The Loggly timeout.',
-      default: 5000,
-      env: 'NODE_LOGGLY_TIMEOUT'
-    },
-    hostname: {
-      doc: 'The Loggly hostname.',
-      default: 'localhost',
-      env: 'NODE_LOGGLY_HOSTNAME'
     }
   },
   pmpScheduler: {
@@ -88,8 +66,17 @@ const conf = convict({
   port: {
     doc: 'The port to bind.',
     format: 'port',
-    default: 8080,
+    default: 8081,
     env: 'NODE_PORT'
+  },
+  winston: {
+    file: {
+      filename: {
+        doc: 'The log filename.',
+        default: './logs/pmp_manager.log',
+        env: 'NODE_WINSTON_FILENAME'
+      }
+    }
   }
 });
 

@@ -1,10 +1,10 @@
 {
-  "loggly": {
-    "hostname": "manager.picmeplease.eu"
-  },
   "pmpScheduler": {
     "scheduler": {
       "refreshInterval": 900000
+    },
+    "scraper": {
+      "pmpApiUrl": "http://api.picmeplease.eu"
     }
   }
 }

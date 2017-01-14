@@ -1,7 +1,4 @@
 {
-  "loggly": {
-    "hostname": "manager.test.picmeplease.eu"
-  },
   "pmpScheduler": {
     "scheduler": {
       "refreshInterval": 900000
