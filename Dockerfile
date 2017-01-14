@@ -17,8 +17,6 @@ RUN cd /tmp && npm install pm2@latest -g && npm install --production
 
 RUN mkdir -p /home/app && cp -a /tmp/node_modules /home/app
 
-RUN pm2 startup ubuntu
-
 WORKDIR /home/app
 
 ADD . /home/app
