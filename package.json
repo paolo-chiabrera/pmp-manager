@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/paolo-chiabrera/pmp-manager#readme",
   "dependencies": {
+    "@risingstack/trace": "^3.0.4",
     "blipp": "^2.3.0",
     "convict": "^1.4.0",
     "good": "^7.0.2",

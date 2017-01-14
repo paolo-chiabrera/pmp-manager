@@ -3,7 +3,8 @@
 const ENVS = {
   PROD: 'production',
   DEV: 'development',
-  TEST: 'test'
+  TEST: 'test',
+  LOCAL: 'local'
 };
 
 /*
@@ -19,6 +20,10 @@ const config = require('./config/config.js').get();
 /*
 * define app
 */
+if (config.trace === true) {
+  require('@risingstack/trace');
+}
+
 const Hapi = require('hapi');
 const Good = require('good');
 const Pack = require('./package');
@@ -81,56 +86,56 @@ const reporters = {
       module: 'good-winston-object',
       args: [logger]
     }]
-};
+  };
 
-server.register([{
-  register: Good,
-  options: {
-    ops: {
-      interval: 900000 // 15 mins
-    },
-    reporters
-  }
-}, {
-  register: require('./plugins/scraper/scraper.plugin.js')
-}, {
-  register: require('blipp'),
-  options: {
-    showAuth: true,
-    showStart: true
-  }
-}, {
-  register: require('inert')
-}, {
-  register: require('vision')
-}, {
-  register: require('hapi-swagger'),
-  options: {
-    schemes: ['http'],
-    auth: false,
-    host: config.host + (config.env === ENVS.PROD ? '' : ':' + config.port), // fix swagger issue with port and urls
-    documentationPage: true,
-    swaggerUI: true,
-    documentationPath: '/docs',
-    info: {
-      title: 'Picmeplease Scraper API Documentation',
-      version: Pack.version
+  server.register([{
+    register: Good,
+    options: {
+      ops: {
+        interval: 900000 // 15 mins
+      },
+      reporters
     }
-  }
-}], (err) => {
-  server.log(['info', 'config'], config);
+  }, {
+    register: require('./plugins/scraper/scraper.plugin.js')
+  }, {
+    register: require('blipp'),
+    options: {
+      showAuth: true,
+      showStart: true
+    }
+  }, {
+    register: require('inert')
+  }, {
+    register: require('vision')
+  }, {
+    register: require('hapi-swagger'),
+    options: {
+      schemes: ['http'],
+      auth: false,
+      host: config.host + (config.env !== ENVS.LOCAL ? '' : ':' + config.port), // fix swagger issue with port and urls
+      documentationPage: true,
+      swaggerUI: true,
+      documentationPath: '/docs',
+      info: {
+        title: 'Picmeplease Scraper API Documentation',
+        version: Pack.version
+      }
+    }
+  }], (err) => {
+    server.log(['info', 'config'], config);
 
-  if (err) {
-    throw err; // something bad happened loading the plugin
-  }
-
-  server.start((err) => {
     if (err) {
-      throw err;
+      throw err; // something bad happened loading the plugin
     }
 
-    server.log(['info'], 'Server running at: ' + server.info.uri);
-  });
-});
+    server.start((err) => {
+      if (err) {
+        throw err;
+      }
 
-module.exports = server;
+      server.log(['info'], 'Server running at: ' + server.info.uri);
+    });
+  });
+
+  module.exports = server;

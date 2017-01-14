@@ -69,6 +69,11 @@ const conf = convict({
     default: 8081,
     env: 'NODE_PORT'
   },
+  trace: {
+    doc: 'The flag to enable Trace.',
+    default: false,
+    env: 'NODE_TRACE'
+	},
   winston: {
     file: {
       filename: {
