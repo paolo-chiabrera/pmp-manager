@@ -22,8 +22,9 @@ module.exports.scrapePageBySourceId = {
   config: {
     handler: (req, reply) => {
       const { pageNumber, sourceId } = req.params;
-      const { scrapePageBySourceId } = req.server.methods;
-      const { config } = req.server.settings;
+      const { server } = req;
+      const { scrapePageBySourceId } = server.methods;
+      const { config } = server.settings;
       const { scraper } = config.pmpScheduler;
 
       scrapePageBySourceId({
@@ -31,12 +32,13 @@ module.exports.scrapePageBySourceId = {
         pageNumber,
         sourceId
       }, (err, res) => {
-        reindexImages(scraper);
-
         if (err) {
+          server.log(['error', 'scrape-page-error'], err);
           reply(err);
           return;
         }
+
+        reindexImages(scraper);
 
         reply(res);
       });
@@ -59,18 +61,19 @@ module.exports.scrapeSourceById = {
   config: {
     handler: (req, reply) => {
       const { sourceId } = req.params;
-      const { scrapeSourceById } = req.server.methods;
-      const { config } = req.server.settings;
+      const { server } = req;
+      const { scrapeSourceById } = server.methods;
+      const { config } = server.settings;
       const { scraper } = config.pmpScheduler;
 
       scrapeSourceById({
         onScrapePage: (err, res) => {
           if (err) {
-            req.server.log(['error', 'scrape-page'], err);
+            server.log(['error', 'scrape-page'], err);
             return;
           }
 
-          req.server.log(['info', 'scrape-page'], res);
+          server.log(['info', 'scrape-page'], res);
         },
         options: scraper,
         sourceId
@@ -78,11 +81,11 @@ module.exports.scrapeSourceById = {
         reindexImages(scraper);
 
         if (err) {
-          req.server.log(['error', 'scrape-source-error'], err);
+          server.log(['error', 'scrape-source-error'], err);
           return;
         }
 
-        req.server.log(['info', 'scrape-source-done'], res);
+        server.log(['info', 'scrape-source-done'], res);
       });
 
       reply('started scraping: ' + sourceId);
