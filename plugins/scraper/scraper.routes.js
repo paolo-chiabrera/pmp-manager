@@ -34,7 +34,7 @@ module.exports.scrapePageBySourceId = {
         reindexImages(scraper);
 
         if (err) {
-          reply(err).code(500);
+          reply(err);
           return;
         }
 
