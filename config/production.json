@@ -4,7 +4,9 @@
       "refreshInterval": 900000
     },
     "scraper": {
+      "folderPath": "/images",
       "pmpApiUrl": "http://api.picmeplease.eu"
     }
-  }
+  },
+  "trace": true
 }

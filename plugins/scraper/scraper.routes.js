@@ -1,6 +1,18 @@
 'use strict';
 
 const Joi = require('joi');
+const Wreck = require('wreck');
+
+function reindexImages (args = {}, done = () => {}) {
+  const { pmpApiUrl, request } = args;
+
+  const options = {
+    baseUrl: pmpApiUrl,
+    headers: request.headers
+  };
+
+  Wreck.request('post', '/images/reindex', options, done);
+}
 
 /* routes */
 
@@ -12,12 +24,15 @@ module.exports.scrapePageBySourceId = {
       const { pageNumber, sourceId } = req.params;
       const { scrapePageBySourceId } = req.server.methods;
       const { config } = req.server.settings;
+      const { scraper } = config.pmpScheduler;
 
       scrapePageBySourceId({
-        options: config.pmpScheduler.scraper,
+        options: scraper,
         pageNumber,
         sourceId
       }, (err, res) => {
+        reindexImages(scraper);
+
         if (err) {
           reply(err).code(500);
           return;
@@ -46,6 +61,7 @@ module.exports.scrapeSourceById = {
       const { sourceId } = req.params;
       const { scrapeSourceById } = req.server.methods;
       const { config } = req.server.settings;
+      const { scraper } = config.pmpScheduler;
 
       scrapeSourceById({
         onScrapePage: (err, res) => {
@@ -56,9 +72,11 @@ module.exports.scrapeSourceById = {
 
           req.server.log(['info', 'scrape-page'], res);
         },
-        options: config.pmpScheduler.scraper,
+        options: scraper,
         sourceId
       }, (err, res) => {
+        reindexImages(scraper);
+
         if (err) {
           req.server.log(['error', 'scrape-source-error'], err);
           return;
