@@ -78,12 +78,12 @@ module.exports.scrapeSourceById = {
         options: scraper,
         sourceId
       }, (err, res) => {
-        reindexImages(scraper);
-
         if (err) {
           server.log(['error', 'scrape-source-error'], err);
           return;
         }
+
+        reindexImages(scraper);
 
         server.log(['info', 'scrape-source-done'], res);
       });
