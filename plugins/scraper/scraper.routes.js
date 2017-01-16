@@ -3,7 +3,7 @@
 const Joi = require('joi');
 const Wreck = require('wreck');
 
-function reindexImages (args = {}, done = () => {}) {
+function reindexImages (args, done) {
   const { pmpApiUrl, request } = args;
 
   const options = {
