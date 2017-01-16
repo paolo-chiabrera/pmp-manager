@@ -1,8 +1,7 @@
 language: node_js
 node_js:
+  - v7
   - v6
-  - v5
-  - v4
 before_script: chmod 0777 ./node_modules/coveralls/bin/coveralls.js
 script: npm run test
 after_success: cat ./test/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

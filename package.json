@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/paolo-chiabrera/pmp-manager#readme",
   "dependencies": {
-    "@risingstack/trace": "^3.0.4",
+    "@risingstack/trace": "3.x",
     "blipp": "^2.3.0",
     "convict": "^1.4.0",
     "good": "^7.0.2",
@@ -39,7 +39,7 @@
     "hapi": "^15.0.3",
     "hapi-swagger": "^7.4.0",
     "inert": "^4.0.2",
-    "pmp-scraper": "^1.0.3",
+    "pmp-scraper": "1.x",
     "vision": "^4.1.0",
     "winston": "^2.3.0",
     "wreck": "^10.0.0"
